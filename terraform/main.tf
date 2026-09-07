@@ -36,7 +36,8 @@ resource "azurerm_subnet" "this" {
       name = "delegation-${each.key}"
 
       service_delegation {
-        name = delegation.value
+        name    = delegation.value
+        actions = try(each.value.delegation_actions, null)
       }
     }
   }
@@ -120,7 +121,7 @@ resource "azurerm_virtual_network_peering" "hub_to_ops" {
 
   name                      = "peer-hub-to-ops"
   resource_group_name       = azurerm_resource_group.network.name
-  virtual_network_name      = azurerm_virtual_network.this["hub"].name
+  virtual_network_name      = azurerm_virtual_network.this["ops"].name
   remote_virtual_network_id = azurerm_virtual_network.this["ops"].id
 
   allow_virtual_network_access = true
