@@ -2,7 +2,7 @@
 
 ## Pause point
 
-Project LIFELINE is intentionally paused during Stage 05 so the Azure environment can be destroyed while AZ-700 theory is studied without ongoing cloud cost.
+Project LIFELINE is intentionally paused during Stage 05 so AZ-700 theory can be studied without ongoing Azure cost.
 
 ## Completed stages
 
@@ -16,7 +16,7 @@ Project LIFELINE is intentionally paused during Stage 05 so the Azure environmen
 
 Stage 05 — DNS and name resolution — IN PROGRESS.
 
-Hands-on foundation completed and verified:
+Hands-on foundation completed and verified before teardown:
 - Private DNS zone `lifeline.internal`
 - Synthetic A record `api.lifeline.internal -> 10.10.2.10`
 - Private DNS VNet links for Hub, App, Data and Ops
@@ -37,24 +37,16 @@ Not yet completed:
 
 The branch contains the cost-gated DNS Private Resolver resources in `terraform/dns-resolver.tf` with `enable_dns_private_resolver = false` by default.
 
-## Azure cleanup
+## Azure cleanup — COMPLETE
 
-The Azure environment can be destroyed using the Stage 05 tfvars. The Terraform code and Git history remain available for a later rebuild.
+The cumulative Project LIFELINE Azure environment was intentionally destroyed at the pause point.
 
-From `terraform/`:
+Verified result:
+- Terraform destroy completed with `0 added, 0 changed, 38 destroyed`.
+- `az group exists --name rg-lifeline-lab-network-aue` returned `false`.
+- A subsequent normal Stage 05 Terraform plan proposed `38 to add, 0 to change, 0 to destroy`, confirming the Azure resources are gone while the desired configuration remains available for rebuild.
 
-```powershell
-terraform plan -destroy -var-file="stages/05-dns.tfvars" -out="lifeline-destroy.tfplan"
-terraform apply "lifeline-destroy.tfplan"
-```
-
-Then verify the resource group no longer exists:
-
-```powershell
-az group exists --name rg-lifeline-lab-network-aue
-```
-
-Expected result: `false`.
+Do not apply that recreation plan during the theory-only phase.
 
 ## Resume point
 
