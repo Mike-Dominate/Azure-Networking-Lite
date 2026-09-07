@@ -46,6 +46,36 @@ variable "hub_transit_ip" {
   default     = "10.0.4.4"
 }
 
+variable "enable_hybrid_foundation" {
+  description = "Create GatewaySubnet in the hub and a separate simulated HQ VNet/subnet for hybrid-connectivity labs."
+  type        = bool
+  default     = false
+}
+
+variable "enable_vpn_gateway" {
+  description = "Create the hourly-billed Azure VPN Gateway and public IP. Keep false unless the lab intentionally enables the service."
+  type        = bool
+  default     = false
+}
+
+variable "simulated_hq_address_space" {
+  description = "Address space representing the on-premises/HQ network in the hybrid lab."
+  type        = string
+  default     = "172.16.0.0/16"
+}
+
+variable "simulated_hq_subnet_prefix" {
+  description = "Workload subnet inside the simulated HQ VNet."
+  type        = string
+  default     = "172.16.1.0/24"
+}
+
+variable "vpn_gateway_sku" {
+  description = "VPN Gateway SKU used only when enable_vpn_gateway is true."
+  type        = string
+  default     = "VpnGw1AZ"
+}
+
 variable "tags" {
   description = "Additional tags applied to LIFELINE resources."
   type        = map(string)
