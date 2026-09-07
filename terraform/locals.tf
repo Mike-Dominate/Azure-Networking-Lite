@@ -106,16 +106,18 @@ locals {
 
   dns_subnets = var.enable_dns_foundation ? {
     dns_inbound = {
-      name             = "snet-dns-inbound"
-      vnet_key         = "hub"
-      address_prefixes = ["10.0.3.0/28"]
-      delegation_name  = "Microsoft.Network/dnsResolvers"
+      name               = "snet-dns-inbound"
+      vnet_key           = "hub"
+      address_prefixes   = ["10.0.3.0/28"]
+      delegation_name    = "Microsoft.Network/dnsResolvers"
+      delegation_actions = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
     }
     dns_outbound = {
-      name             = "snet-dns-outbound"
-      vnet_key         = "hub"
-      address_prefixes = ["10.0.3.16/28"]
-      delegation_name  = "Microsoft.Network/dnsResolvers"
+      name               = "snet-dns-outbound"
+      vnet_key           = "hub"
+      address_prefixes   = ["10.0.3.16/28"]
+      delegation_name    = "Microsoft.Network/dnsResolvers"
+      delegation_actions = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
     }
   } : {}
 
