@@ -5,7 +5,7 @@ The tracker measures capability, not ceremony.
 | Lab | Capability | Status | One-sentence takeaway |
 |---:|---|---|---|
 | 00 | Architecture, naming, IP plan | DONE | One coherent address plan prevents later routing and service-subnet conflicts. |
-| 01 | Core VNets and subnets | NOT STARTED | |
+| 01 | Core VNets and subnets | DONE | Separate VNets are separate routing domains; sharing a subscription, region or resource group does not connect them. |
 | 02 | Hub-spoke peering | NOT STARTED | |
 | 03 | Routing, UDRs, egress | NOT STARTED | |
 | 04 | Hybrid VPN | NOT STARTED | |
