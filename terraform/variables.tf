@@ -28,6 +28,12 @@ variable "enable_secondary_region" {
   default     = false
 }
 
+variable "enable_hub_spoke_peering" {
+  description = "Create bidirectional hub-to-spoke peerings for the App, Data and Operations VNets."
+  type        = bool
+  default     = false
+}
+
 variable "tags" {
   description = "Additional tags applied to LIFELINE resources."
   type        = map(string)
