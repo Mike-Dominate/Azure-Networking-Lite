@@ -12,8 +12,8 @@ locals {
     var.tags
   )
 
-  # Stage 01 creates the core routing domains. The secondary region remains
-  # feature-gated until the global-resilience stages need it.
+  # Stage 01 creates the core routing domains. Later stages selectively add
+  # service-specific networks and subnets without changing the original plan.
   primary_vnets = {
     hub = {
       name          = "vnet-${local.name_prefix}-hub-aue"
@@ -37,6 +37,14 @@ locals {
     }
   }
 
+  hybrid_vnets = var.enable_hybrid_foundation ? {
+    hq = {
+      name          = "vnet-${local.name_prefix}-hq-aue"
+      location      = var.primary_location
+      address_space = [var.simulated_hq_address_space]
+    }
+  } : {}
+
   secondary_vnets = var.enable_secondary_region ? {
     app_sea = {
       name          = "vnet-${local.name_prefix}-app-sea"
@@ -45,7 +53,7 @@ locals {
     }
   } : {}
 
-  vnets = merge(local.primary_vnets, local.secondary_vnets)
+  vnets = merge(local.primary_vnets, local.hybrid_vnets, local.secondary_vnets)
 
   primary_subnets = {
     hub_shared = {
@@ -85,6 +93,19 @@ locals {
     }
   }
 
+  hybrid_subnets = var.enable_hybrid_foundation ? {
+    hub_gateway = {
+      name             = "GatewaySubnet"
+      vnet_key         = "hub"
+      address_prefixes = ["10.0.1.0/27"]
+    }
+    hq_workload = {
+      name             = "snet-hq"
+      vnet_key         = "hq"
+      address_prefixes = [var.simulated_hq_subnet_prefix]
+    }
+  } : {}
+
   secondary_subnets = var.enable_secondary_region ? {
     app_sea_web = {
       name             = "snet-web"
@@ -98,5 +119,5 @@ locals {
     }
   } : {}
 
-  subnets = merge(local.primary_subnets, local.secondary_subnets)
+  subnets = merge(local.primary_subnets, local.hybrid_subnets, local.secondary_subnets)
 }
