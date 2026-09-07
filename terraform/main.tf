@@ -18,7 +18,7 @@ resource "azurerm_virtual_network" "this" {
   location            = each.value.location
   resource_group_name = azurerm_resource_group.network.name
   address_space       = each.value.address_space
-  tags                 = local.common_tags
+  tags                = local.common_tags
 }
 
 resource "azurerm_subnet" "this" {
