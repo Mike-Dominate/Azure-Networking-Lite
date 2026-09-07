@@ -12,8 +12,6 @@ locals {
     var.tags
   )
 
-  # Stage 01 creates the core routing domains. Later stages selectively add
-  # service-specific networks and subnets without changing the original plan.
   primary_vnets = {
     hub = {
       name          = "vnet-${local.name_prefix}-hub-aue"
@@ -106,6 +104,21 @@ locals {
     }
   } : {}
 
+  dns_subnets = var.enable_dns_foundation ? {
+    dns_inbound = {
+      name             = "snet-dns-inbound"
+      vnet_key         = "hub"
+      address_prefixes = ["10.0.3.0/28"]
+      delegation_name  = "Microsoft.Network/dnsResolvers"
+    }
+    dns_outbound = {
+      name             = "snet-dns-outbound"
+      vnet_key         = "hub"
+      address_prefixes = ["10.0.3.16/28"]
+      delegation_name  = "Microsoft.Network/dnsResolvers"
+    }
+  } : {}
+
   secondary_subnets = var.enable_secondary_region ? {
     app_sea_web = {
       name             = "snet-web"
@@ -119,5 +132,5 @@ locals {
     }
   } : {}
 
-  subnets = merge(local.primary_subnets, local.hybrid_subnets, local.secondary_subnets)
+  subnets = merge(local.primary_subnets, local.hybrid_subnets, local.dns_subnets, local.secondary_subnets)
 }
