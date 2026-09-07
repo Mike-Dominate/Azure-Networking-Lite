@@ -6,8 +6,8 @@ The tracker measures capability, not ceremony.
 |---:|---|---|---|
 | 00 | Architecture, naming, IP plan | DONE | One coherent address plan prevents later routing and service-subnet conflicts. |
 | 01 | Core VNets and subnets | DONE | Separate VNets are separate routing domains; sharing a subscription, region or resource group does not connect them. |
-| 02 | Hub-spoke peering | NOT STARTED | |
-| 03 | Routing, UDRs, egress | NOT STARTED | |
+| 02 | Hub-spoke peering | DONE | Peering creates direct VNet relationships, but it is not transitive and does not make the hub a transit router. |
+| 03 | Routing, UDRs, egress | DONE | A UDR expresses route intent; a real forwarding device is still required to carry transit traffic to the next network. |
 | 04 | Hybrid VPN | NOT STARTED | |
 | 05 | DNS and name resolution | NOT STARTED | |
 | 06 | Private Link / Private Endpoints | NOT STARTED | |
