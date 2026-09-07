@@ -1,0 +1,20 @@
+# Terraform working files
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+
+# Terraform variable files that may contain local values
+*.auto.tfvars
+*.auto.tfvars.json
+terraform.tfvars
+terraform.tfvars.json
+
+# CLI/editor/OS noise
+.azure/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
