@@ -31,7 +31,7 @@ resource "azurerm_virtual_network_gateway" "hub" {
   sku      = var.vpn_gateway_sku
 
   active_active = false
-  enable_bgp    = false
+  bgp_enabled   = false
 
   ip_configuration {
     name                          = "vng-ipconfig"
