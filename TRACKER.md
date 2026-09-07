@@ -9,7 +9,7 @@ The tracker measures capability, not ceremony.
 | 02 | Hub-spoke peering | DONE | Peering creates direct VNet relationships, but it is not transitive and does not make the hub a transit router. |
 | 03 | Routing, UDRs, egress | DONE | A UDR expresses route intent; a real forwarding device is still required to carry transit traffic to the next network. |
 | 04 | Hybrid VPN | DONE | Hybrid connectivity joins remote clients or external networks to Azure through a gateway; the expensive gateway was plan-validated without being left running. |
-| 05 | DNS and name resolution | NOT STARTED | |
+| 05 | DNS and name resolution | IN PROGRESS | DNS tells a client what address to try; routing and service availability determine whether that address actually works. |
 | 06 | Private Link / Private Endpoints | NOT STARTED | |
 | 07 | Regional load distribution | NOT STARTED | |
 | 08 | Traffic Manager | NOT STARTED | |
